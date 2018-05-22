@@ -33,6 +33,4 @@ app.use('/api', function(req, res) {
     res.send('Welcome to the service');
 });
 
-app.listen(6500, function() {
-    console.log('Service is listening on port', 3500);
-});
+app.listen();
