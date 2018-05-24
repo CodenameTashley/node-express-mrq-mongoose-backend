@@ -7,15 +7,17 @@ var express = require('express'),
     app = express(),
     restify = mrq.restify;
 
+const PORT = process.env.PORT || 3000;
+
 mrq.config.modelSchemas = schemas;
-mrq.config.dbPath = /* 'mongodb://192.168.1.139:27017/testproj'; */'mongodb://adminTashley:codenametashley@ds016138.mlab.com:16138/codenametashley'
+mrq.config.dbPath = 'mongodb://adminTashley:codenametashley@ds016138.mlab.com:16138/codenametashley'
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 app.use(mrq.db);
 
-app.use('/api/', function (req, res, next) {
+app.use('/', function (req, res, next) {
 
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-auth-token, x-client-id");
@@ -27,10 +29,12 @@ app.use('/api/', function (req, res, next) {
         next();
 });
 
-app.use('/api/users', restify('User'));
+app.use('/users', restify('User'));
 
-app.use('/api', function(req, res) {
+app.use('/', function (req, res) {
     res.send('Welcome to the service');
 });
 
-app.listen();
+app.listen(PORT, function () {
+    console.log('Service is listening on port', PORT );
+});

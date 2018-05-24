@@ -4,7 +4,7 @@
   "description": "Service running for CodenameTashley",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start" : "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -16,5 +16,9 @@
     "mongoose-auto-number": "^1.0.2",
     "mongoose-rest-query": "^0.1.4",
     "morgan": "^1.8.2"
+  },
+  "engines": {
+    "node": "8.11.2",
+    "npm" : "6.0.1"
   }
 }
