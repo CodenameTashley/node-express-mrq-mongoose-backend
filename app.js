@@ -5,6 +5,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     schemas = require('./schema'),
     app = express(),
+    helmet = require('helmet'),
     restify = mrq.restify;
 
 const PORT = process.env.PORT || 3000;
@@ -13,7 +14,15 @@ mrq.config.modelSchemas = schemas;
 mrq.config.dbPath = 'mongodb://adminTashley:codenametashley@ds016138.mlab.com:16138/codenametashley'
 
 app.use(morgan('dev'));
-app.use(bodyParser.json());
+app.use(helmet());
+app.use(bodyParser.json({
+    limit: '5mb'
+}));
+
+app.use(bodyParser.urlencoded({
+    limit: '5mb',
+    extended: true
+}));
 
 app.use(mrq.db);
 
@@ -36,5 +45,5 @@ app.use('/', function (req, res) {
 });
 
 app.listen(PORT, function () {
-    console.log('Service is listening on port', PORT );
+    console.log('Service is listening on port', PORT);
 });
