@@ -2,12 +2,24 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-    firstname: String,
-    lastname: String,
-    address: String,
-    phone: String,
-    email: String,
-    age: Number
+    fullname: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        match: [/.+\@.+\..+/, 'Please fill a valid email address']
+    },
+    passwordToken: {
+        type: String,
+        required: true,
+        select: false
+    },
+    lastlogin: {
+        type: Date,
+        default: new Date()
+    }
 });
 
 module.exports = userSchema;

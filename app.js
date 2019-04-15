@@ -39,7 +39,7 @@ app.use('/', function (req, res, next) {
         next();
 });
 
-app.use('/users', restify('User'));
+ app.use('/users', restify('User'));
 
 app.use('/version', function (req, res) {
     res.send(package.version);
