@@ -19,6 +19,11 @@ var userSchema = new Schema({
     lastlogin: {
         type: Date,
         default: new Date()
+    },
+    isActive: {
+        type: Boolean,
+        required: true,
+        default: true
     }
 });
 

@@ -1,5 +1,5 @@
 var express = require('express'),
-    mongoose = require('mongoose'),
+   // mongoose = require('mongoose'),
     mrq = require('mongoose-rest-query'),
     morgan = require('morgan'),
     bodyParser = require('body-parser'),
