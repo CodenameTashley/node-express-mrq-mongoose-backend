@@ -6,6 +6,7 @@ var express = require('express'),
     schemas = require('./schema'),
     app = express(),
     helmet = require('helmet'),
+    package = require('./package.json'),
     restify = mrq.restify;
 
 const PORT = process.env.PORT || 3000;
@@ -39,6 +40,10 @@ app.use('/', function (req, res, next) {
 });
 
 app.use('/users', restify('User'));
+
+app.use('/version', function (req, res) {
+    res.send(package.version);
+});
 
 app.use('/', function (req, res) {
     res.send('Welcome to the service');
