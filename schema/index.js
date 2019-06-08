@@ -3,4 +3,4 @@ module.exports = {
 }
 
 /* Register all schemas here */
-/* Test comment */
+
