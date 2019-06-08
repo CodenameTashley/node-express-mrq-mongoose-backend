@@ -4,9 +4,11 @@ const express = require('express'),
     bodyParser = require('body-parser'),
     app = express(),
     helmet = require('helmet'),
-    package = require('./package.json'),
+    package = require('../package.json'),
     restify = mrq.restify,
-    config = require('./config');
+    config = require('./app.config');
+
+let middleware = require('./middleware');
 
 mrq.config.modelSchemas = config.SCHEMAS;
 mrq.config.dbPath = config.DB_PATH;
@@ -22,16 +24,21 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+
 app.use(mrq.db);
+app.use(middleware.cors);
 
-app.use('/', (req, res, next) => {
+// app.use('/', (req, res, next) => {
 
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-auth-token, x-client-id");
-    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-auth-token, x-client-id");
+//     res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
 
-    res.method === 'OPTIONS' ? res.end() : next()
-});
+//     res.method === 'OPTIONS' ? res.end() : next()
+// });
+
+
+app.use(middleware.auth);
 
 app.use('/users', restify('User'));
 

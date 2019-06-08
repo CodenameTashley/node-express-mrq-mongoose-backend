@@ -11,7 +11,7 @@ var userSchema = new Schema({
         required: true,
         match: [/.+\@.+\..+/, 'Please fill a valid email address']
     },
-    passwordToken: {
+    password: {
         type: String,
         required: true,
         select: false
