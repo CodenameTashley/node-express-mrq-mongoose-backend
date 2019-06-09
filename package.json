@@ -2,9 +2,9 @@
   "name": "nodejs-backend-service",
   "version": "0.0.1",
   "description": "Service running for CodenameTashley",
-  "main": "app.js",
+  "main": "src/app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Tashley <tashleyvivesh@gmail.com>",
