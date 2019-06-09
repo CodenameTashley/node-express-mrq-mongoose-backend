@@ -24,31 +24,24 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-
 app.use(mrq.db);
 app.use(middleware.cors);
 
-// app.use('/', (req, res, next) => {
+//public route
 
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-auth-token, x-client-id");
-//     res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-
-//     res.method === 'OPTIONS' ? res.end() : next()
-// });
-
-
-app.use(middleware.auth);
-
-app.use('/users', restify('User'));
+app.use('/', (req, res) => {
+    res.send('Welcome to the service');
+});
 
 app.use('/version', (req, res) => {
     res.send(package.version);
 });
 
-app.use('/', (req, res) => {
-    res.send('Welcome to the service');
-});
+app.use('/api', require('./route/authRoute')());
+
+app.use(middleware.auth);
+
+app.use('/users', restify('User'));
 
 app.listen(config.PORT, () => {
     console.log('Service is listening on port', config.PORT);

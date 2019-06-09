@@ -22,16 +22,19 @@
     "unit.js": "^2.0.0"
   },
   "dependencies": {
+    "bcrypt": "^3.0.6",
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "mongoose": "^4.10.6",
-    "mongoose-auto-number": "^1.0.2",
-    "mongoose-rest-query": "^0.1.4",
+    "helmet": "3.9.0",
     "jwt-async": "^1.1.2",
     "jwt-simple": "0.5.1",
     "moment": "2.20.1",
+    "mongoose": "^4.10.6",
+    "mongoose-auto-number": "^1.0.2",
+    "mongoose-rest-query": "^0.1.4",
     "morgan": "^1.8.2",
-    "helmet": "3.9.0"
+    "node-mailjet": "^3.3.1"
   },
   "engines": {
     "node": "8.11.2",

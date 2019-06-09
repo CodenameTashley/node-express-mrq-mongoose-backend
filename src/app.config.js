@@ -9,5 +9,16 @@ module.exports = {
         durationType: 'days',
         durationShort: 1,
         durationLong: 365
+    },
+    mailTemplates: {
+        welcome: 381403,
+        resendActivation: 381445,
+        resetPassword: 381490
+    },
+    mail: {
+        api_key: process.env.MAIL_API_KEY || '34abddacd68b2b23e453d55ec8aa310d',
+        api_secret: process.env.MAIL_API_SECRET || 'd3aee2b401e906c4a7bbf295ad20d8fd',
+        email: process.env.FROM_EMAIL || 'brendonemile7@gmail.com',
+        name: 'DarthCoders'
     }
 }
