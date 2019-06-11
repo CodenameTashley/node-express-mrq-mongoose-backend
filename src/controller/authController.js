@@ -1,8 +1,8 @@
-var mrq = require('mongoose-rest-query');
-var async = require('async');
-var bcrypt = require('bcrypt-nodejs');
-var jwt = require('../utils/jwt');
-var config = require('../app.config');
+const mrq = require('mongoose-rest-query'),
+    async = require('async'),
+        bcrypt = require('bcrypt-nodejs'),
+        jwt = require('../utils/jwt'),
+        config = require('../app.config');
 
 module.exports = function () {
 
@@ -24,14 +24,17 @@ module.exports = function () {
                 })
                 .select('email password isActive')
                 .exec(function (err, user) {
-                    callback(err, {
-                        user: {}
-                    });
+                    result = {};
+                    result.user = user;
+                    callback(err, result);
                 });
 
         }
 
         function checkUserPassword(result, callback) {
+
+            console.log(result);
+
 
             bcrypt.compare(req.body.password, result.user.password, function (err, value) {
                 if (value)
@@ -99,6 +102,24 @@ module.exports = function () {
 
         }
 
+        function verifyIfUsernameAvailable(result, callback) {
+
+            User.findOne({
+                email: req.body.username
+            }, function (err, user) {
+
+                if (user) {
+                    var error = new Error('UserNameNotAvailable');
+                    error.name = 'Username not available';
+                    error.httpStatusCode = 409;
+
+                    callback(error, null);
+                } else
+                    callback(null, {});
+            });
+
+        }
+
         function createUser(result, callback) {
 
             var user = {
@@ -109,9 +130,9 @@ module.exports = function () {
             };
 
             User.create(user, function (err, data) {
-                result.user = data;
+                result.user = data.toJSON();
+                delete result.user.password
                 callback(err, result);
-
             });
         }
 
@@ -129,19 +150,7 @@ module.exports = function () {
 
         }
 
-        function sendWelcomeMail(result, callback) {
-
-            var variables = {
-                clientName: result.user.fullname,
-                welcomeLink: 'arkregistry/api/public/activate/' + result.token
-            };
-
-            mailer.sendmail(result.user.email, config.mailTemplates.welcome, variables, function (err, sent) {
-                callback(err, result);
-            });
-        }
-
-        async.waterfall([verifyIfEmailAvailable, createUser, generateJWT, sendWelcomeMail], function (err, result) {
+        async.waterfall([verifyIfEmailAvailable, verifyIfUsernameAvailable, createUser, generateJWT], function (err, result) {
 
             if (err) {
 
@@ -149,8 +158,10 @@ module.exports = function () {
                     res.status(err.httpStatusCode).send(err);
                 else
                     res.status(500).send(err);
-            } else
-                res.status(201).send('Member registered sucessfully');
+            } else {
+                res.status(200).send(result);
+            }
+
         });
     }
 };

@@ -29,9 +29,9 @@ app.use(middleware.cors);
 
 //public route
 
-app.use('/', (req, res) => {
-    res.send('Welcome to the service');
-});
+// app.use('/', (req, res) => {
+//     res.send('Welcome to the service');
+// });
 
 app.use('/version', (req, res) => {
     res.send(package.version);

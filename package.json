@@ -33,6 +33,7 @@
     "mongoose": "^4.10.6",
     "mongoose-auto-number": "^1.0.2",
     "mongoose-rest-query": "^0.1.4",
+    "mongoose-sanitize-json": "1.0.1",
     "morgan": "^1.8.2"
   },
   "engines": {
