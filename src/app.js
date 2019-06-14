@@ -6,13 +6,14 @@ const express = require('express'),
     helmet = require('helmet'),
     package = require('../package.json'),
     restify = mrq.restify,
+    passport = require('passport'),
     config = require('./app.config');
 
 let middleware = require('./middleware');
 
 mrq.config.modelSchemas = config.SCHEMAS;
 mrq.config.dbPath = config.DB_PATH;
-
+require('./utils/auth')(passport);
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(bodyParser.json({
@@ -25,6 +26,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(mrq.db);
+app.use(passport.initialize());
 app.use(middleware.cors);
 
 //public route
@@ -37,7 +39,7 @@ app.use('/version', (req, res) => {
     res.send(package.version);
 });
 
-app.use('/api', require('./route/authRoute')());
+app.use('/api/auth', require('./route/authRoute')());
 
 app.use(middleware.auth);
 

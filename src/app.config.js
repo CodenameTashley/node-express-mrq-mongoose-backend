@@ -20,5 +20,10 @@ module.exports = {
         api_secret: process.env.MAIL_API_SECRET || 'd3aee2b401e906c4a7bbf295ad20d8fd',
         email: process.env.FROM_EMAIL || 'brendonemile7@gmail.com',
         name: 'DarthCoders'
+    },
+    facebook: {
+        app_id: "445281516310886",
+        app_secret: "61fd03fae23d92c0225bf66d83a47545",
+        callback: "http://localhost:9060/api/auth/facebook/callback"
     }
 }
